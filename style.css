@@ -1,0 +1,1052 @@
+/* ==========================================================================
+   ROSA ENCANTADA — Folha de estilos
+   Tema: biblioteca antiga e encantada (tons terrosos, dourado, bordô, musgo)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. VARIÁVEIS (paleta, fontes, espaçamentos)
+   -------------------------------------------------------------------------- */
+:root {
+    /* Paleta principal */
+    --cor-cafe:        #3b2417;   /* marrom café (textos fortes, header) */
+    --cor-chocolate:   #4f3221;   /* marrom chocolate */
+    --cor-caramelo:    #a8743f;   /* caramelo */
+    --cor-terracota:   #b5583a;   /* terracota */
+    --cor-dourado:     #b8924a;   /* dourado envelhecido */
+    --cor-dourado-claro: #d9bf7f;
+    --cor-bordo:       #7a1f2b;   /* vermelho vinho / bordô (detalhes) */
+    --cor-musgo:       #5b6b3a;   /* verde musgo (pontual) */
+
+    /* Fundos "papel" */
+    --papel-claro:     #f6efe1;
+    --papel:           #efe4cf;
+    --papel-escuro:    #e3d3b4;
+    --creme:           #fbf7ee;
+
+    /* Textos */
+    --texto:           #3b2a1e;
+    --texto-suave:     #7a6552;
+    --texto-claro:     #f6efe1;
+
+    /* Estados */
+    --sucesso-fundo:   #e7ecdc;
+    --sucesso-borda:   var(--cor-musgo);
+    --erro-fundo:      #f3dedd;
+    --erro-borda:      var(--cor-bordo);
+
+    /* Tipografia */
+    --fonte-titulo: 'Cormorant Garamond', 'Georgia', serif;
+    --fonte-texto:  'Nunito Sans', 'Segoe UI', system-ui, sans-serif;
+
+    /* Formas e sombras */
+    --raio: 10px;
+    --raio-pequeno: 6px;
+    --sombra-suave: 0 4px 14px rgba(59, 36, 23, 0.10);
+    --sombra-media: 0 10px 28px rgba(59, 36, 23, 0.18);
+    --sombra-forte: 0 22px 50px rgba(59, 36, 23, 0.28);
+
+    --transicao: 220ms ease;
+    --largura-max: 1200px;
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET E BASE
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: var(--fonte-texto);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--texto);
+    background-color: var(--papel);
+    /* Textura de papel envelhecido feita apenas com gradientes CSS */
+    background-image:
+        radial-gradient(ellipse at 20% 10%, rgba(255, 250, 235, 0.65), transparent 55%),
+        radial-gradient(ellipse at 80% 90%, rgba(168, 116, 63, 0.14), transparent 55%),
+        radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.10), transparent 70%),
+        repeating-linear-gradient(0deg, rgba(90, 60, 30, 0.018) 0 1px, transparent 1px 3px),
+        repeating-linear-gradient(90deg, rgba(90, 60, 30, 0.014) 0 1px, transparent 1px 4px);
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+h1, h2, h3 {
+    font-family: var(--fonte-titulo);
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0;
+    color: var(--cor-cafe);
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* Elemento visualmente oculto, mas acessível a leitores de tela */
+.visually-hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Foco visível para navegação por teclado */
+:focus-visible {
+    outline: 2px solid var(--cor-dourado);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   3. CABEÇALHO — estante de biblioteca com luz quente
+   -------------------------------------------------------------------------- */
+.site-header {
+    position: relative;
+    text-align: center;
+    color: var(--texto-claro);
+    padding: 3.5rem 1.5rem 3rem;
+    overflow: hidden;
+
+    /* Imagem dos livros + iluminação quente */
+    background-color: var(--cor-cafe);
+    background-image:
+        radial-gradient(
+            ellipse at 50% 0%,
+            rgba(16, 3, 47, 0.474),
+            transparent 60%
+        ),
+        linear-gradient(
+            rgba(38, 32, 92, 0.55),
+            rgba(9, 2, 29, 0.55)
+        ),
+        url("assets/img/biblioteca.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    box-shadow: inset 0 -30px 60px rgb(0, 0, 0);
+}
+
+/* Prateleira/moldura superior e inferior em dourado */
+.header-ornament {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, transparent, var(--cor-dourado) 20%, var(--cor-dourado-claro) 50%, var(--cor-dourado) 80%, transparent);
+    opacity: 0.85;
+}
+.header-ornament--top    { top: 10px; }
+.header-ornament--bottom { bottom: 10px; }
+
+.header-content {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
+    /* Painel translúcido para legibilidade sobre a estante */
+    background: rgba(24, 14, 40, 0.62);
+    border: 1px solid rgba(1, 47, 107, 0.35);
+    border-radius: var(--raio);
+    padding: 2rem 2rem 1.5rem;
+    backdrop-filter: blur(2px);
+    box-shadow: var(--sombra-media), inset 0 0 0 4px rgba(40, 24, 14, 0.5), inset 0 0 0 5px rgba(3, 141, 216, 0.319);
+    animation: surgir 700ms ease both;
+}
+
+.header-rose {
+    width: 120px;
+    height: auto;
+    margin: 0 auto 0.25rem;
+    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.45));
+}
+
+.site-title {
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: 0.04em;
+    color: #f4e6c7;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    font-family: "Cormorant Infant", serif;
+}
+
+.site-subtitle {
+    font-family: var(--fonte-titulo);
+    font-style: italic;
+    font-size: clamp(1.1rem, 2.4vw, 1.45rem);
+    color: var(--cor-dourado-claro);
+    margin: 0.25rem 0 0.75rem;
+}
+
+/* Divisor ornamental com florão central */
+.title-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    color: var(--cor-dourado);
+}
+.title-divider span {
+    display: block;
+    width: 90px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cor-dourado));
+}
+.title-divider span:last-child {
+    background: linear-gradient(90deg, var(--cor-dourado), transparent);
+}
+.title-divider i {
+    font-style: normal;
+    font-size: 1.15rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. LAYOUT PRINCIPAL
+   -------------------------------------------------------------------------- */
+.site-main {
+    max-width: var(--largura-max);
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+}
+
+.secao {
+    margin-bottom: 3.5rem;
+    animation: surgir 600ms ease both;
+}
+
+.secao-cabecalho {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.secao-titulo {
+    font-size: clamp(1.8rem, 3.6vw, 2.4rem);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+.titulo-icone {
+    color: var(--cor-dourado);
+    font-size: 0.85em;
+}
+
+.secao-descricao {
+    margin: 0.35rem 0 0;
+    color: var(--texto-suave);
+    font-style: italic;
+    font-family: var(--fonte-titulo);
+    font-size: 1.1rem;
+}
+
+/* --------------------------------------------------------------------------
+   5. CARD "PAPEL ANTIGO" (formulário e modais)
+   -------------------------------------------------------------------------- */
+.papel-antigo {
+    position: relative;
+    background-color: var(--papel-claro);
+    background-image:
+        radial-gradient(ellipse at 10% 0%, rgba(255, 255, 255, 0.5), transparent 50%),
+        radial-gradient(ellipse at 90% 100%, rgba(168, 116, 63, 0.14), transparent 55%),
+        repeating-linear-gradient(0deg, rgba(90, 60, 30, 0.02) 0 1px, transparent 1px 3px);
+    border: 1px solid var(--papel-escuro);
+    border-radius: var(--raio);
+    padding: 2rem;
+    box-shadow: var(--sombra-media);
+}
+
+/* Moldura dourada interna discreta */
+.papel-antigo::before {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(184, 146, 74, 0.45);
+    border-radius: calc(var(--raio) - 4px);
+    pointer-events: none;
+}
+
+/* Cantos ornamentais */
+.papel-antigo::after {
+    content: "❧";
+    position: absolute;
+    top: 10px;
+    right: 16px;
+    color: var(--cor-dourado);
+    font-size: 1.1rem;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   6. FORMULÁRIO
+   -------------------------------------------------------------------------- */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.1rem 1.5rem;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+.campo--full {
+    grid-column: 1 / -1;
+}
+
+.campo label {
+    font-family: var(--fonte-titulo);
+    font-weight: 600;
+    font-size: 1.08rem;
+    color: var(--cor-chocolate);
+    margin-bottom: 0.3rem;
+}
+.obrigatorio {
+    color: var(--cor-bordo);
+}
+
+.campo input,
+.campo select,
+.campo textarea,
+.campo-pesquisa input,
+.filtro select {
+    width: 100%;
+    font-family: var(--fonte-texto);
+    font-size: 0.98rem;
+    color: var(--texto);
+    background: var(--creme);
+    border: 1px solid var(--papel-escuro);
+    border-bottom: 2px solid var(--cor-caramelo);
+    border-radius: var(--raio-pequeno);
+    padding: 0.65rem 0.85rem;
+    transition: border-color var(--transicao), box-shadow var(--transicao), background var(--transicao);
+}
+
+.campo textarea {
+    resize: vertical;
+    min-height: 96px;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus,
+.campo-pesquisa input:focus,
+.filtro select:focus {
+    outline: none;
+    border-color: var(--cor-dourado);
+    box-shadow: 0 0 0 3px rgba(184, 146, 74, 0.22);
+    background: #fff;
+}
+
+/* Campo inválido */
+.campo.invalido input,
+.campo.invalido select,
+.campo.invalido textarea {
+    border-color: var(--cor-bordo);
+    border-bottom-color: var(--cor-bordo);
+    background: #fdf5f4;
+}
+
+.campo-erro {
+    min-height: 1.1rem;
+    margin-top: 0.25rem;
+    font-size: 0.82rem;
+    color: var(--cor-bordo);
+}
+
+.form-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    justify-content: flex-end;
+}
+
+/* --------------------------------------------------------------------------
+   7. BOTÕES
+   -------------------------------------------------------------------------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0.7rem 1.4rem;
+    border-radius: var(--raio-pequeno);
+    border: 1px solid transparent;
+    transition: transform var(--transicao), box-shadow var(--transicao), background var(--transicao), color var(--transicao);
+}
+.btn:hover   { transform: translateY(-2px); }
+.btn:active  { transform: translateY(0); }
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn--primario {
+    color: #fff8ea;
+    background: linear-gradient(180deg, var(--cor-caramelo), #8a5a2b);
+    border-color: #6f4520;
+    box-shadow: 0 4px 12px rgba(111, 69, 32, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+.btn--primario:hover {
+    background: linear-gradient(180deg, #b98350, #8a5a2b);
+    box-shadow: 0 8px 18px rgba(111, 69, 32, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.btn-icone {
+    color: var(--cor-dourado-claro);
+}
+
+.btn--secundario {
+    color: var(--cor-chocolate);
+    background: transparent;
+    border-color: var(--cor-caramelo);
+}
+.btn--secundario:hover {
+    background: rgba(168, 116, 63, 0.12);
+}
+
+.btn--perigo {
+    color: #fff5f4;
+    background: linear-gradient(180deg, #304196, #060345);
+    border-color: #0d0125;
+    box-shadow: 0 4px 12px rgba(23, 5, 81, 0.35);
+}
+.btn--perigo:hover {
+    background: linear-gradient(180deg, #224ea7, #251a6c);
+}
+
+.btn--texto {
+    background: none;
+    border: none;
+    color: var(--cor-bordo);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    padding: 0.4rem 0.6rem;
+}
+.btn--texto:hover {
+    color: var(--cor-terracota);
+    transform: none;
+}
+
+/* Botões pequenos dentro dos cards */
+.btn--pequeno {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.88rem;
+    flex: 1;
+}
+
+/* --------------------------------------------------------------------------
+   8. MENSAGENS DE FEEDBACK
+   -------------------------------------------------------------------------- */
+.mensagem {
+    position: fixed;
+    top: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    max-width: min(92vw, 520px);
+    padding: 0.9rem 1.4rem;
+    border-radius: var(--raio-pequeno);
+    border-left: 5px solid var(--cor-dourado);
+    background: var(--papel-claro);
+    color: var(--texto);
+    box-shadow: var(--sombra-forte);
+    font-weight: 600;
+    animation: descer 300ms ease both;
+}
+.mensagem[hidden] { display: none; }
+
+.mensagem--sucesso {
+    background: var(--sucesso-fundo);
+    border-left-color: var(--sucesso-borda);
+    color: #2f3a1c;
+}
+.mensagem--erro {
+    background: var(--erro-fundo);
+    border-left-color: var(--erro-borda);
+    color: #4d1019;
+}
+.mensagem--aviso {
+    background: #f4e9d0;
+    border-left-color: var(--cor-caramelo);
+}
+
+/* --------------------------------------------------------------------------
+   9. ESTATÍSTICAS
+   -------------------------------------------------------------------------- */
+.estatisticas {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+}
+
+.estatistica {
+    text-align: center;
+    padding: 1.1rem 0.75rem;
+    background: var(--papel-claro);
+    border: 1px solid var(--papel-escuro);
+    border-top: 3px solid var(--cor-dourado);
+    border-radius: var(--raio);
+    box-shadow: var(--sombra-suave);
+    transition: transform var(--transicao), box-shadow var(--transicao);
+}
+.estatistica:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sombra-media);
+}
+.estatistica--lido      { border-top-color: var(--cor-musgo); }
+.estatistica--lendo     { border-top-color: var(--cor-caramelo); }
+.estatistica--nao-lido  { border-top-color: var(--cor-bordo); }
+
+.estatistica-numero {
+    display: block;
+    font-family: var(--fonte-titulo);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--cor-cafe);
+    line-height: 1;
+}
+.estatistica-rotulo {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+}
+
+/* --------------------------------------------------------------------------
+   10. PESQUISA E FILTROS
+   -------------------------------------------------------------------------- */
+.barra-pesquisa {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    background: var(--papel-claro);
+    border: 1px solid var(--papel-escuro);
+    border-radius: var(--raio);
+    box-shadow: var(--sombra-suave);
+    margin-bottom: 0.75rem;
+}
+
+.campo-pesquisa {
+    position: relative;
+    flex: 1 1 280px;
+}
+.pesquisa-icone {
+    position: absolute;
+    left: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.95rem;
+    opacity: 0.7;
+    pointer-events: none;
+}
+.campo-pesquisa input {
+    padding-left: 2.5rem;
+    font-family: var(--fonte-titulo);
+    font-size: 1.1rem;
+}
+
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+}
+.filtro select {
+    min-width: 160px;
+    cursor: pointer;
+}
+
+.contador-resultados {
+    margin: 0 0 1.25rem;
+    text-align: right;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--texto-suave);
+    font-family: var(--fonte-titulo);
+    min-height: 1.4rem;
+}
+
+/* --------------------------------------------------------------------------
+   11. GRADE E CARDS DE LIVROS
+   -------------------------------------------------------------------------- */
+.grade-livros {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.6rem;
+}
+
+.card-livro {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--papel-claro);
+    border: 1px solid var(--papel-escuro);
+    border-radius: var(--raio);
+    overflow: hidden;
+    box-shadow: var(--sombra-suave);
+    transition: transform var(--transicao), box-shadow var(--transicao), border-color var(--transicao);
+    animation: surgir 450ms ease both;
+}
+.card-livro:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--sombra-forte);
+    border-color: var(--cor-dourado);
+}
+
+/* Fita dourada no topo do card */
+.card-livro::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--cor-caramelo), var(--cor-dourado-claro), var(--cor-caramelo));
+    z-index: 2;
+}
+
+/* Capa */
+.card-capa {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    max-height: 300px;
+    overflow: hidden;
+    background: linear-gradient(160deg, var(--cor-chocolate), var(--cor-cafe));
+}
+.card-capa img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 400ms ease;
+}
+.card-livro:hover .card-capa img {
+    transform: scale(1.04);
+}
+
+/* Capa padrão (quando não há URL ou a imagem falha) */
+.card-capa-padrao {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.25rem;
+    color: var(--cor-dourado-claro);
+    background:
+        radial-gradient(ellipse at 50% 20%, rgba(216, 170, 90, 0.25), transparent 60%),
+        linear-gradient(160deg, #5c3a25, var(--cor-cafe));
+    box-shadow: inset 0 0 0 8px rgba(0, 0, 0, 0.15), inset 0 0 0 9px rgba(217, 191, 127, 0.35);
+}
+.card-capa-padrao .capa-icone {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+.card-capa-padrao .capa-titulo {
+    font-family: var(--fonte-titulo);
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: #f4e6c7;
+}
+.card-capa-padrao .capa-autor {
+    font-family: var(--fonte-titulo);
+    font-style: italic;
+    font-size: 0.95rem;
+    margin-top: 0.3rem;
+}
+
+/* Selo de status sobre a capa */
+.card-status {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.65rem;
+    border-radius: 999px;
+    color: #fff;
+    background: var(--cor-caramelo);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+.card-status--lido     { background: var(--cor-musgo); }
+.card-status--lendo    { background: var(--cor-caramelo); }
+.card-status--nao-lido { background: var(--cor-bordo); }
+
+/* Corpo do card */
+.card-corpo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1.1rem 1.2rem 1.2rem;
+}
+
+.card-titulo {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--cor-cafe);
+    margin-bottom: 0.1rem;
+}
+.card-autor {
+    font-family: var(--fonte-titulo);
+    font-style: italic;
+    color: var(--texto-suave);
+    margin: 0 0 0.6rem;
+    font-size: 1.02rem;
+}
+
+.card-meta {
+    font-size: 0.85rem;
+    color: var(--cor-chocolate);
+    margin: 0 0 0.4rem;
+}
+.card-meta .separador {
+    color: var(--cor-dourado);
+    margin: 0 0.35rem;
+}
+
+.card-nota {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--cor-dourado);
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.65rem;
+}
+.card-nota .estrela-vazia {
+    color: var(--papel-escuro);
+}
+.card-nota .nota-valor {
+    font-size: 0.8rem;
+    color: var(--texto-suave);
+    letter-spacing: 0;
+}
+
+.card-descricao {
+    font-size: 0.9rem;
+    color: var(--texto);
+    margin: 0 0 1rem;
+    /* Limita a descrição a 3 linhas */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex: 1;
+}
+.card-descricao--vazia {
+    font-style: italic;
+    color: var(--texto-suave);
+}
+
+.card-acoes {
+    display: flex;
+    gap: 0.6rem;
+    padding-top: 0.85rem;
+    border-top: 1px dashed var(--papel-escuro);
+    margin-top: auto;
+}
+
+/* --------------------------------------------------------------------------
+   12. ESTADOS: vazio, carregando, erro
+   -------------------------------------------------------------------------- */
+.estado-vazio,
+.estado-carregando,
+.estado-erro {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3.5rem 1.5rem;
+    background: var(--papel-claro);
+    border: 1px dashed var(--cor-dourado);
+    border-radius: var(--raio);
+    color: var(--texto-suave);
+    font-family: var(--fonte-titulo);
+    font-size: 1.25rem;
+    font-style: italic;
+}
+.estado-vazio .vazio-icone,
+.estado-erro .erro-icone {
+    display: block;
+    font-size: 2.6rem;
+    margin-bottom: 0.6rem;
+    font-style: normal;
+}
+.estado-erro {
+    border-color: var(--cor-bordo);
+    color: var(--cor-bordo);
+}
+
+.carregando-pena {
+    display: inline-block;
+    font-size: 2rem;
+    color: var(--cor-caramelo);
+    animation: balancar 1.4s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   13. MODAIS
+   -------------------------------------------------------------------------- */
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+.modal[hidden] { display: none; }
+
+.modal-fundo {
+    position: absolute;
+    inset: 0;
+    background: rgba(35, 20, 10, 0.72);
+    backdrop-filter: blur(3px);
+    animation: aparecer 200ms ease both;
+}
+
+.modal-conteudo {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 720px;
+    max-height: 92vh;
+    overflow-y: auto;
+    animation: surgir 260ms ease both;
+}
+.modal-conteudo--pequeno {
+    max-width: 480px;
+}
+
+.modal-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--papel-escuro);
+}
+.modal-titulo {
+    font-size: 1.7rem;
+}
+.modal-titulo span {
+    color: var(--cor-dourado);
+}
+.modal-fechar {
+    background: none;
+    border: 1px solid transparent;
+    font-size: 1.8rem;
+    line-height: 1;
+    color: var(--texto-suave);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: background var(--transicao), color var(--transicao);
+    position: relative;
+    z-index: 1;
+}
+.modal-fechar:hover {
+    background: rgba(122, 31, 43, 0.1);
+    color: var(--cor-bordo);
+}
+
+.modal-texto {
+    font-size: 1.05rem;
+    margin: 0 0 0.5rem;
+}
+.modal-texto strong {
+    color: var(--cor-bordo);
+    font-family: var(--fonte-titulo);
+    font-size: 1.15rem;
+}
+
+/* Evita rolagem do fundo enquanto o modal está aberto */
+body.modal-aberto {
+    overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   14. RODAPÉ E BOTÃO "VOLTAR AO TOPO"
+   -------------------------------------------------------------------------- */
+.site-footer {
+    text-align: center;
+    padding: 2.5rem 1.5rem 3rem;
+    color: var(--texto-claro);
+    background-color: #05032a;
+    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.25), transparent 30%);
+    font-family: var(--fonte-titulo);
+    font-size: 1.05rem;
+}
+.site-footer p { margin: 0.35rem 0; }
+.site-footer .title-divider { margin-bottom: 1rem; }
+.footer-nota {
+    font-family: var(--fonte-texto);
+    font-size: 0.82rem;
+    color: var(--cor-dourado-claro);
+    opacity: 0.85;
+}
+
+.btn-topo {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 800;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid var(--cor-dourado);
+    background: var(--cor-cafe);
+    color: var(--cor-dourado-claro);
+    font-size: 1.3rem;
+    box-shadow: var(--sombra-media);
+    transition: transform var(--transicao), background var(--transicao);
+    animation: aparecer 250ms ease both;
+}
+.btn-topo:hover {
+    transform: translateY(-3px);
+    background: var(--cor-chocolate);
+}
+.btn-topo[hidden] { display: none; }
+
+/* --------------------------------------------------------------------------
+   15. ANIMAÇÕES (discretas)
+   -------------------------------------------------------------------------- */
+@keyframes surgir {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes descer {
+    from { opacity: 0; transform: translate(-50%, -16px); }
+    to   { opacity: 1; transform: translate(-50%, 0); }
+}
+@keyframes aparecer {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes balancar {
+    0%, 100% { transform: rotate(-8deg); }
+    50%      { transform: rotate(8deg); }
+}
+
+/* Respeita usuários que preferem menos movimento */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+    html { scroll-behavior: auto; }
+}
+
+/* --------------------------------------------------------------------------
+   16. RESPONSIVIDADE
+   -------------------------------------------------------------------------- */
+
+/* Tablet */
+@media (max-width: 900px) {
+    .estatisticas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .grade-livros {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+}
+
+/* Celular */
+@media (max-width: 600px) {
+    .site-header {
+        padding: 2.5rem 1rem 2.25rem;
+    }
+    .header-content {
+        padding: 1.5rem 1.15rem 1.15rem;
+    }
+    .title-divider span { width: 50px; }
+
+    .site-main {
+        padding: 1.75rem 1rem 3rem;
+    }
+
+    .papel-antigo {
+        padding: 1.5rem 1.1rem;
+    }
+
+    /* Formulário em coluna única */
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .form-acoes {
+        justify-content: stretch;
+    }
+    .form-acoes .btn {
+        flex: 1;
+    }
+
+    /* Cards em coluna única */
+    .grade-livros {
+        grid-template-columns: 1fr;
+    }
+    .card-capa {
+        max-height: 320px;
+    }
+
+    .barra-pesquisa {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .filtros {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .filtro select {
+        width: 100%;
+    }
+    .contador-resultados {
+        text-align: center;
+    }
+
+    .estatistica-numero { font-size: 2rem; }
+
+    .modal-conteudo {
+        max-height: 94vh;
+    }
+}
+
+/* Celulares muito pequenos */
+@media (max-width: 380px) {
+    .estatisticas {
+        grid-template-columns: 1fr;
+    }
+}

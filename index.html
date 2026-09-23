@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rosa Encantada — sua biblioteca digital pessoal. Cadastre, organize e acompanhe suas leituras.">
+    <title>Rosa Encantada — Biblioteca Pessoal</title>
+
+    <!-- Tipografia: serifada elegante para títulos + sans legível para textos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+
+    <!-- Estilos do projeto -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Favicon simples em SVG (rosa) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='26' r='14' fill='%237a1f2b'/%3E%3Ccircle cx='32' cy='26' r='7' fill='%23a3323f'/%3E%3Cpath d='M32 40v18' stroke='%235b6b3a' stroke-width='3'/%3E%3C/svg%3E">
+</head>
+<body>
+
+    <!-- ============================================================
+         CABEÇALHO
+         ============================================================ -->
+    <header class="site-header" id="site-header">
+        <div class="header-ornament header-ornament--top" aria-hidden="true"></div>
+
+        <div class="header-content">
+            <!-- Rosa do site -->
+            <img src="assets/img/rosa.png" alt="Rosa encantada" class="header-rose">
+
+            <h1 class="site-title">Rosa Encantada</h1>
+            <p class="site-subtitle">Talvez o maior encanto deste castelo esteja escondido entre as páginas.</p>
+
+            <div class="title-divider" aria-hidden="true">
+                <span></span><i>❦</i><span></span>
+            </div>
+        </div>
+
+        <div class="header-ornament header-ornament--bottom" aria-hidden="true"></div>
+    </header>
+
+    <!-- ============================================================
+         CONTEÚDO PRINCIPAL
+         ============================================================ -->
+    <main class="site-main" id="conteudo">
+
+        <!-- Área de mensagens (sucesso / erro / aviso) -->
+        <div id="mensagem" class="mensagem" role="status" aria-live="polite" hidden></div>
+
+        <!-- --------------------------------------------------------
+             SEÇÃO 1: CADASTRO
+             -------------------------------------------------------- -->
+        <section class="secao secao-cadastro" id="secao-cadastro" aria-labelledby="titulo-cadastro">
+            <div class="secao-cabecalho">
+                <h2 class="secao-titulo" id="titulo-cadastro">
+                    <span class="titulo-icone" aria-hidden="true">✒</span>
+                    Adicionar uma nova história
+                </h2>
+                <p class="secao-descricao">Ainda há tantos mundos para conhecer…</p>
+            </div>
+
+            <article class="papel-antigo">
+                <form id="form-livro" class="form-livro" novalidate>
+
+                    <div class="form-grid">
+                        <!-- Título -->
+                        <div class="campo campo--full">
+                            <label for="titulo">Título <span class="obrigatorio" aria-hidden="true">*</span></label>
+                            <input type="text" id="titulo" name="titulo" placeholder="Ex.: Orgulho e Preconceito" maxlength="200" required autocomplete="off">
+                            <small class="campo-erro" id="erro-titulo" aria-live="polite"></small>
+                        </div>
+
+                        <!-- Autor -->
+                        <div class="campo">
+                            <label for="autor">Autor <span class="obrigatorio" aria-hidden="true">*</span></label>
+                            <input type="text" id="autor" name="autor" placeholder="Ex.: Jane Austen" maxlength="150" required autocomplete="off">
+                            <small class="campo-erro" id="erro-autor" aria-live="polite"></small>
+                        </div>
+
+                        <!-- Gênero -->
+                        <div class="campo">
+                            <label for="genero">Gênero <span class="obrigatorio" aria-hidden="true">*</span></label>
+                            <select id="genero" name="genero" required>
+                                <option value="">Selecione um gênero</option>
+                                <option>Romance</option>
+                                <option>Fantasia</option>
+                                <option>Ficção Científica</option>
+                                <option>Clássico</option>
+                                <option>Poesia</option>
+                                <option>Aventura</option>
+                                <option>Mistério</option>
+                                <option>Suspense</option>
+                                <option>Terror</option>
+                                <option>Drama</option>
+                                <option>Biografia</option>
+                                <option>História</option>
+                                <option>Infantojuvenil</option>
+                                <option>Conto de Fadas</option>
+                                <option>Autoajuda</option>
+                                <option>Filosofia</option>
+                                <option>Religião</option>
+                                <option>Técnico / Didático</option>
+                                <option>Outro</option>
+                            </select>
+                            <small class="campo-erro" id="erro-genero" aria-live="polite"></small>
+                        </div>
+
+                        <!-- Ano -->
+                        <div class="campo">
+                            <label for="ano_publicacao">Ano de publicação</label>
+                            <input type="number" id="ano_publicacao" name="ano_publicacao" placeholder="Ex.: 1813" min="0" max="2100" step="1" inputmode="numeric">
+                            <small class="campo-erro" id="erro-ano_publicacao" aria-live="polite"></small>
+                        </div>
+
+                        <!-- Status -->
+                        <div class="campo">
+                            <label for="status_leitura">Status da leitura</label>
+                            <select id="status_leitura" name="status_leitura">
+                                <option value="Para Ler">Para Ler</option>
+                                <option value="Lendo">Lendo</option>
+                                <option value="Lido">Lido</option>
+                            </select>
+                            <small class="campo-erro" id="erro-status_leitura" aria-live="polite"></small>
+                        </div>
+
+                        <!-- Nota -->
+                        <div class="campo">
+                            <label for="nota">Nota (0 a 5)</label>
+                            <input type="number" id="nota" name="nota" placeholder="Ex.: 5" min="0" max="5" step="1" inputmode="numeric">
+                            <small class="campo-erro" id="erro-nota" aria-live="polite"></small>
+                        </div>
+
+                        <!-- URL da capa -->
+                        <div class="campo campo--full">
+                            <label for="capa_url">URL da capa (opcional)</label>
+                            <input type="url" id="capa_url" name="capa_url" placeholder="https://exemplo.com/capa.jpg" autocomplete="off">
+                            <small class="campo-erro" id="erro-capa_url" aria-live="polite"></small>
+                        </div>
+
+                        <!-- Descrição -->
+                        <div class="campo campo--full">
+                            <label for="descricao">Descrição</label>
+                            <textarea id="descricao" name="descricao" rows="4" maxlength="1000" placeholder="Uma breve sinopse ou suas impressões sobre a obra..."></textarea>
+                            <small class="campo-erro" id="erro-descricao" aria-live="polite"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-acoes">
+                        <button type="submit" class="btn btn--primario" id="btn-adicionar">
+                            <span class="btn-icone" aria-hidden="true">✦</span>
+                            Adicionar à biblioteca
+                        </button>
+                        <button type="button" class="btn btn--secundario" id="btn-limpar">Limpar</button>
+                    </div>
+                </form>
+            </article>
+        </section>
+
+        <!-- --------------------------------------------------------
+             SEÇÃO 2: BIBLIOTECA
+             -------------------------------------------------------- -->
+        <section class="secao secao-biblioteca" id="secao-biblioteca" aria-labelledby="titulo-biblioteca">
+            <div class="secao-cabecalho">
+                <h2 class="secao-titulo" id="titulo-biblioteca">
+                    Minha Biblioteca
+                </h2>
+                <p class="secao-descricao">Histórias terminam, mas aquilo que nos ensinaram permanece.</p>
+            </div>
+
+            <!-- Estatísticas calculadas dinamicamente -->
+            <div class="estatisticas" id="estatisticas" aria-label="Estatísticas da biblioteca">
+                <article class="estatistica">
+                    <span class="estatistica-numero" id="stat-total">0</span>
+                    <span class="estatistica-rotulo">Livros no total</span>
+                </article>
+                <article class="estatistica estatistica--lido">
+                    <span class="estatistica-numero" id="stat-lidos">0</span>
+                    <span class="estatistica-rotulo">Lidos</span>
+                </article>
+                <article class="estatistica estatistica--lendo">
+                    <span class="estatistica-numero" id="stat-lendo">0</span>
+                    <span class="estatistica-rotulo">Lendo agora</span>
+                </article>
+                <article class="estatistica estatistica--nao-lido">
+                    <span class="estatistica-numero" id="stat-nao-lidos">0</span>
+                    <span class="estatistica-rotulo">Ainda não lidos</span>
+                </article>
+            </div>
+
+            <!-- Pesquisa e filtros -->
+            <div class="barra-pesquisa" id="barra-pesquisa" role="search">
+                <div class="campo-pesquisa">
+                    <label for="pesquisa" class="visually-hidden">Pesquisar por título ou autor</label>
+                    <span class="pesquisa-icone" aria-hidden="true">🔍</span>
+                    <input type="search" id="pesquisa" placeholder="Pesquisar por título ou autor..." autocomplete="off">
+                </div>
+
+                <div class="filtros">
+                    <div class="filtro">
+                        <label for="filtro-genero" class="visually-hidden">Filtrar por gênero</label>
+                        <select id="filtro-genero">
+                            <option value="">Todos os gêneros</option>
+                        </select>
+                    </div>
+                    <div class="filtro">
+                        <label for="filtro-status" class="visually-hidden">Filtrar por status</label>
+                        <select id="filtro-status">
+                            <option value="">Todos os status</option>
+                            <option value="Para Ler">Para Ler</option>
+                            <option value="Lendo">Lendo</option>
+                            <option value="Lido">Lido</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn--texto" id="btn-limpar-filtros">Limpar filtros</button>
+                </div>
+            </div>
+
+            <p class="contador-resultados" id="contador-resultados" aria-live="polite"></p>
+
+            <!-- Grade de cards (preenchida via JavaScript) -->
+            <div class="grade-livros" id="grade-livros" aria-live="polite">
+                <!-- Estado de carregamento inicial -->
+                <div class="estado-carregando" id="estado-carregando">
+                    <span class="carregando-pena" aria-hidden="true">✒</span>
+                    <p>Abrindo as portas da biblioteca...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============================================================
+         RODAPÉ
+         ============================================================ -->
+    <footer class="site-footer">
+        <div class="title-divider" aria-hidden="true">
+            <span></span><i>❦</i><span></span>
+        </div>
+        <p>Rosa Encantada · Uma biblioteca encantada para guardar suas histórias.</p>
+        <p class="footer-nota"><b>João Tavares e Mirelle Cristina</b> · Projeto escolar · HTML, CSS, JavaScript e Supabase</p>
+    </footer>
+
+    <!-- Botão voltar ao topo -->
+    <button type="button" class="btn-topo" id="btn-topo" aria-label="Voltar ao topo" title="Voltar ao topo" hidden>↑</button>
+
+    <!-- ============================================================
+         MODAL DE EDIÇÃO
+         ============================================================ -->
+    <div class="modal" id="modal-editar" role="dialog" aria-modal="true" aria-labelledby="modal-titulo" hidden>
+        <div class="modal-fundo" id="modal-fundo"></div>
+
+        <div class="modal-conteudo papel-antigo">
+            <header class="modal-cabecalho">
+                <h3 class="modal-titulo" id="modal-titulo">
+                    <span aria-hidden="true">✎</span> Editar história
+                </h3>
+                <button type="button" class="modal-fechar" id="modal-fechar" aria-label="Fechar">×</button>
+            </header>
+
+            <form id="form-editar" class="form-livro" novalidate>
+                <input type="hidden" id="editar-id">
+
+                <div class="form-grid">
+                    <div class="campo campo--full">
+                        <label for="editar-titulo">Título <span class="obrigatorio" aria-hidden="true">*</span></label>
+                        <input type="text" id="editar-titulo" maxlength="200" required>
+                        <small class="campo-erro" id="erro-editar-titulo" aria-live="polite"></small>
+                    </div>
+
+                    <div class="campo">
+                        <label for="editar-autor">Autor <span class="obrigatorio" aria-hidden="true">*</span></label>
+                        <input type="text" id="editar-autor" maxlength="150" required>
+                        <small class="campo-erro" id="erro-editar-autor" aria-live="polite"></small>
+                    </div>
+
+                    <div class="campo">
+                        <label for="editar-genero">Gênero <span class="obrigatorio" aria-hidden="true">*</span></label>
+                        <select id="editar-genero" required>
+                            <option value="">Selecione um gênero</option>
+                            <option>Romance</option>
+                            <option>Fantasia</option>
+                            <option>Ficção Científica</option>
+                            <option>Clássico</option>
+                            <option>Poesia</option>
+                            <option>Aventura</option>
+                            <option>Mistério</option>
+                            <option>Suspense</option>
+                            <option>Terror</option>
+                            <option>Drama</option>
+                            <option>Biografia</option>
+                            <option>História</option>
+                            <option>Infantojuvenil</option>
+                            <option>Conto de Fadas</option>
+                            <option>Autoajuda</option>
+                            <option>Filosofia</option>
+                            <option>Religião</option>
+                            <option>Técnico / Didático</option>
+                            <option>Outro</option>
+                        </select>
+                        <small class="campo-erro" id="erro-editar-genero" aria-live="polite"></small>
+                    </div>
+
+                    <div class="campo">
+                        <label for="editar-ano_publicacao">Ano de publicação</label>
+                        <input type="number" id="editar-ano_publicacao" min="0" max="2100" step="1" inputmode="numeric">
+                        <small class="campo-erro" id="erro-editar-ano_publicacao" aria-live="polite"></small>
+                    </div>
+
+                    <div class="campo">
+                        <label for="editar-status_leitura">Status da leitura</label>
+                        <select id="editar-status_leitura">
+                            <option value="Para Ler">Para Ler</option>
+                            <option value="Lendo">Lendo</option>
+                            <option value="Lido">Lido</option>
+                        </select>
+                        <small class="campo-erro" id="erro-editar-status_leitura" aria-live="polite"></small>
+                    </div>
+
+                    <div class="campo">
+                        <label for="editar-nota">Nota (0 a 5)</label>
+                        <input type="number" id="editar-nota" min="0" max="5" step="1" inputmode="numeric">
+                        <small class="campo-erro" id="erro-editar-nota" aria-live="polite"></small>
+                    </div>
+
+                    <div class="campo campo--full">
+                        <label for="editar-capa_url">URL da capa (opcional)</label>
+                        <input type="url" id="editar-capa_url">
+                        <small class="campo-erro" id="erro-editar-capa_url" aria-live="polite"></small>
+                    </div>
+
+                    <div class="campo campo--full">
+                        <label for="editar-descricao">Descrição</label>
+                        <textarea id="editar-descricao" rows="4" maxlength="1000"></textarea>
+                        <small class="campo-erro" id="erro-editar-descricao" aria-live="polite"></small>
+                    </div>
+                </div>
+
+                <div class="form-acoes">
+                    <button type="submit" class="btn btn--primario" id="btn-salvar">
+                        <span class="btn-icone" aria-hidden="true">✦</span>
+                        Salvar alterações
+                    </button>
+                    <button type="button" class="btn btn--secundario" id="btn-cancelar">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         MODAL DE CONFIRMAÇÃO DE EXCLUSÃO
+         ============================================================ -->
+    <div class="modal" id="modal-excluir" role="alertdialog" aria-modal="true" aria-labelledby="excluir-titulo" aria-describedby="excluir-texto" hidden>
+        <div class="modal-fundo" id="modal-excluir-fundo"></div>
+
+        <div class="modal-conteudo modal-conteudo--pequeno papel-antigo">
+            <header class="modal-cabecalho">
+                <h3 class="modal-titulo" id="excluir-titulo">
+                    <span aria-hidden="true"></span> Remover história
+                </h3>
+                <button type="button" class="modal-fechar" id="excluir-fechar" aria-label="Fechar">×</button>
+            </header>
+
+            <p class="modal-texto" id="excluir-texto">
+                Tem certeza de que deseja remover <strong id="excluir-nome-livro"></strong> da sua biblioteca?
+                Esta ação não pode ser desfeita.
+            </p>
+
+            <div class="form-acoes">
+                <button type="button" class="btn btn--perigo" id="btn-confirmar-excluir">Sim, remover</button>
+                <button type="button" class="btn btn--secundario" id="btn-cancelar-excluir">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SDK do Supabase via CDN (obrigatório carregar antes do script.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Lógica da aplicação -->
+    <script src="script.js"></script>
+</body>
+</html>
